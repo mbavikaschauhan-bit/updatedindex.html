@@ -678,11 +678,19 @@
                                 <canvas id="accountBalanceChart"></canvas>
                                 </div>
                             </div>
-                             <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
-                                <h3 class="font-semibold" style="color: var(--text-primary);">Monthly Performance</h3>
-                                <p class="text-sm" style="color: var(--text-secondary);">Your P&L broken down by month</p>
-                                <div class="relative h-64 mt-4">
-                                <canvas id="monthlyPerformanceChart"></canvas>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
+                                    <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Monthly Performance</h3>
+                                    <div class="relative h-64">
+                                    <canvas id="monthlyPerformanceChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
+                                    <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Daily P&L</h3>
+                                    <div class="relative h-64">
+                                    <canvas id="dailyPnlChart"></canvas>
+                                    <p id="dailyPnlMessage" class="hidden absolute inset-0 flex items-center justify-center" style="color: var(--text-muted);">No P&L data yet</p>
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -714,14 +722,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Daily P&L Chart -->
-                            <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
-                                <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Daily P&L</h3>
-                                <div class="relative h-64">
-                                     <canvas id="dailyPnlChart"></canvas>
-                                     <p id="dailyPnlMessage" class="hidden absolute inset-0 flex items-center justify-center" style="color: var(--text-muted);">No P&L data yet</p>
-                                </div>
-                            </div>
                             <!-- ADDED: New Chart for Daily Win Rate -->
                             <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
                                 <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Daily Win Rate vs Average Win Rate</h3>
@@ -730,20 +730,18 @@
                                 </div>
                             </div>
 
-                             <!-- Strategy vs P&L Chart -->
-                            <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
-                                <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Strategy vs P&L</h3>
-                                <div class="relative h-64">
-                                <canvas id="strategyPnlChart"></canvas>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
+                                    <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Strategy vs P&L</h3>
+                                    <div class="relative h-64">
+                                    <canvas id="strategyPnlChart"></canvas>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <!-- Trade Distribution by Day of the Week Chart -->
-                            <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
-                                <h3 class="font-semibold mb-2" style="color: var(--text-primary);">Trade Distribution by Day of the Week</h3>
-                                <p class="text-sm mb-4" style="color: var(--text-secondary);">See your trading activity patterns throughout the week</p>
-                                <div class="relative h-64">
-                                <canvas id="tradeDistributionChart"></canvas>
+                                <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
+                                    <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Trade Distribution by Day of the Week</h3>
+                                    <div class="relative h-64">
+                                    <canvas id="tradeDistributionChart"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -3313,12 +3311,12 @@
                                 y: {
                                     beginAtZero: true,
                                     grid: {
-                                        color: 'rgba(0,0,0,0.1)'
+                                        color: 'rgba(255,255,255,0.1)'
                                     }
                                 },
                                 x: {
                                     grid: {
-                                        color: 'rgba(0,0,0,0.1)'
+                                        color: 'rgba(255,255,255,0.1)'
                                     }
                                 }
                             }
@@ -3386,18 +3384,22 @@
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    grid: { color: 'rgba(0,0,0,0.1)' },
+                                    grid: { color: 'rgba(255,255,255,0.1)' },
                                     ticks: {
                                         callback: function(value) {
                                             return '₹' + value.toLocaleString();
-                                        }
+                                        },
+                                        color: 'rgba(255,255,255,0.8)',
+                                        font: { size: 11 }
                                     }
                                 },
                                 x: {
-                                    grid: { color: 'rgba(0,0,0,0.1)' },
+                                    grid: { color: 'rgba(255,255,255,0.1)' },
                                     ticks: {
                                         maxRotation: 45,
-                                        minRotation: 0
+                                        minRotation: 0,
+                                        color: 'rgba(255,255,255,0.8)',
+                                        font: { size: 11 }
                                     }
                                 }
                             }
@@ -3585,14 +3587,14 @@
                                 y: {
                                     beginAtZero: false,
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         callback: function(value) {
                                             return '₹' + value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                                         },
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -3600,11 +3602,11 @@
                                 },
                                 x: {
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         },
@@ -3618,12 +3620,12 @@
                         chartInstances['equityCurveChart'] = equityChart;
                 }
                 
-                // Account Balance Chart - Account Value and Capital Deployed
-                    const balanceCtx = getCtx('accountBalanceChart');
-                    if (balanceCtx) {
-                        if (chartInstances['accountBalanceChart']) {
-                            chartInstances['accountBalanceChart'].destroy();
-                        }
+                // Account Balance Chart - Account Value Only
+                const balanceCtx = getCtx('accountBalanceChart');
+                if (balanceCtx) {
+                    if (chartInstances['accountBalanceChart']) {
+                        chartInstances['accountBalanceChart'].destroy();
+                    }
                     
                     // Get all unique dates from trades and ledger
                     const allDates = new Set();
@@ -3642,34 +3644,27 @@
                     // Sort dates
                     const sortedDates = Array.from(allDates).sort();
                     
+                    // Get initial balance (first deposit amount)
+                    const firstDeposit = ledger.find(l => l.type === 'Deposit');
+                    const initialBalance = firstDeposit ? firstDeposit.amount : 100000; // Default to 1L if no deposits
+                    
                     // If no dates, create sample data
-                    let chartLabels, accountValueData, capitalDeployedData, cumulativeDeposits, cumulativeWithdrawals, cumulativePnl;
+                    let chartLabels, accountValueData, cumulativeDeposits, cumulativeWithdrawals, cumulativePnl;
                     
                     if (sortedDates.length === 0) {
-                        // Sample data matching the image
-                        chartLabels = ['Start', '1 Sept 2025', '1 Sept 2025'];
-                        accountValueData = [0, 100000, 95000];
-                        capitalDeployedData = [0, 110000, 0];
-                        cumulativeDeposits = [0, 100000, 100000];
-                        cumulativeWithdrawals = [0, 0, 5000];
-                        cumulativePnl = [0, 0, 0];
+                        // Sample data
+                        chartLabels = ['Start', '2024-01-15', '2024-02-01', '2024-02-15', '2024-03-01'];
+                        accountValueData = [initialBalance, initialBalance + 5000, initialBalance + 12000, initialBalance + 8000, initialBalance + 15000];
+                        cumulativeDeposits = [initialBalance, initialBalance, initialBalance, initialBalance, initialBalance];
+                        cumulativeWithdrawals = [0, 0, 0, 0, 0];
+                        cumulativePnl = [0, 5000, 12000, 8000, 15000];
                     } else {
                         // Calculate cumulative values for each date
                         chartLabels = sortedDates;
                         accountValueData = [];
-                        capitalDeployedData = [];
                         cumulativeDeposits = [];
                         cumulativeWithdrawals = [];
                         cumulativePnl = [];
-                        
-                        let runningDeposits = 0;
-                        let runningWithdrawals = 0;
-                        let runningPnl = 0;
-                        let runningCapitalDeployed = 0;
-                        
-                        // Get first deposit amount for starting point
-                        const firstDeposit = ledger.find(l => l.type === 'Deposit');
-                        const initialDeposit = firstDeposit ? firstDeposit.amount : 0;
                         
                         sortedDates.forEach(date => {
                             // Calculate deposits and withdrawals up to this date
@@ -3686,32 +3681,19 @@
                                 .filter(trade => trade.exit_date && trade.exit_date <= date)
                                 .reduce((sum, trade) => sum + calculateNetPnl(trade), 0);
                             
-                            // Calculate capital deployed (positive exposure) up to this date
-                            const capitalDeployedToDate = closedTrades
-                                .filter(trade => {
-                                    const entryDate = trade.entry_date;
-                                    const exitDate = trade.exit_date;
-                                    return entryDate && entryDate <= date && (!exitDate || exitDate > date);
-                                })
-                                .reduce((sum, trade) => {
-                                    const exposure = Math.abs((trade.entryPrice || 0) * (trade.quantity || 0));
-                                    return sum + exposure;
-                                }, 0);
-                            
-                            // Account Value = cumulative deposits - cumulative withdrawals + cumulative P&L
-                            const accountValue = depositsToDate - withdrawalsToDate + pnlToDate;
+                            // Account Value = initial_balance + cumulative_deposits - cumulative_withdrawals + cumulative_P&L
+                            const accountValue = initialBalance + depositsToDate - withdrawalsToDate + pnlToDate;
                             
                             accountValueData.push(accountValue);
-                            capitalDeployedData.push(Math.abs(capitalDeployedToDate)); // Ensure positive
                             cumulativeDeposits.push(depositsToDate);
                             cumulativeWithdrawals.push(withdrawalsToDate);
                             cumulativePnl.push(pnlToDate);
                         });
                     }
                     
-                        const balanceChart = new Chart(balanceCtx, {
-                            type: 'line',
-                            data: {
+                    const balanceChart = new Chart(balanceCtx, {
+                        type: 'line',
+                        data: {
                             labels: chartLabels,
                             datasets: [
                                 {
@@ -3720,79 +3702,56 @@
                                     borderColor: 'rgba(20, 184, 166, 1)', // Teal color
                                     backgroundColor: 'rgba(20, 184, 166, 0.1)',
                                     borderWidth: 2,
-                                    fill: false,
-                                    tension: 0.4,
-                                    pointRadius: 4,
-                                    pointHoverRadius: 6
-                                },
-                                {
-                                    label: 'Capital Deployed',
-                                    data: capitalDeployedData,
-                                    borderColor: 'rgba(249, 115, 22, 1)', // Orange color
-                                    backgroundColor: 'rgba(249, 115, 22, 0.1)',
-                                    borderWidth: 2,
-                                    fill: false,
+                                    fill: true,
                                     tension: 0.4,
                                     pointRadius: 4,
                                     pointHoverRadius: 6
                                 }
                             ]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                aspectRatio: 2,
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            aspectRatio: 2,
                             plugins: {
                                 legend: {
-                                    display: true,
-                                    position: 'top',
-                                    labels: {
-                                        usePointStyle: true,
-                                        padding: 20,
-                                        font: {
-                                            size: 12
-                                        }
-                                    }
+                                    display: false
                                 },
                                 tooltip: {
                                     backgroundColor: 'rgba(0, 0, 0, 0.8)',
                                     titleColor: 'white',
                                     bodyColor: 'white',
-                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                    borderColor: 'rgba(20, 184, 166, 1)',
                                     borderWidth: 1,
                                     callbacks: {
+                                        title: function(context) {
+                                            return `Date: ${context[0].label}`;
+                                        },
                                         label: function(context) {
-                                            const datasetLabel = context.dataset.label;
-                                            const value = context.parsed.y;
                                             const index = context.dataIndex;
-                                            
-                                            if (datasetLabel === 'Account Value') {
-                                                return [
-                                                    `Account Value: ₹${value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                    `Cumulative Deposits: ₹${cumulativeDeposits[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                    `Cumulative Withdrawals: ₹${cumulativeWithdrawals[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                    `Cumulative P&L: ₹${cumulativePnl[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
-                                                ];
-                                            } else if (datasetLabel === 'Capital Deployed') {
-                                                return `Capital Deployed: ₹${value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-                                            }
-                                            return `${datasetLabel}: ₹${value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                                            return [
+                                                `Account Value: ₹${context.parsed.y.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                                `Initial Balance: ₹${initialBalance.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                                `Cumulative Deposits: ₹${cumulativeDeposits[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                                `Cumulative Withdrawals: ₹${cumulativeWithdrawals[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                                `Cumulative P&L: ₹${cumulativePnl[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
+                                            ];
                                         }
                                     }
                                 }
                             },
-                                scales: {
+                            scales: {
                                 y: {
                                     beginAtZero: false,
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         callback: function(value) {
                                             return '₹' + value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
                                         },
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -3800,11 +3759,11 @@
                                 },
                                 x: {
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         },
@@ -3812,10 +3771,10 @@
                                         minRotation: 0
                                     }
                                 }
-                                }
                             }
-                        });
-                        chartInstances['accountBalanceChart'] = balanceChart;
+                        }
+                    });
+                    chartInstances['accountBalanceChart'] = balanceChart;
                 }
                 
                 // Monthly Performance Chart
@@ -3825,16 +3784,26 @@
                         chartInstances['monthlyPerformanceChart'].destroy();
                     }
                     
+                    console.log('Creating Monthly Performance Chart with closedTrades:', closedTrades.length);
+                    
                     // Calculate monthly P&L from trades
                     const monthlyPnlData = {};
+                    let totalTrades = 0;
+                    let totalPnl = 0;
+                    
                     closedTrades.forEach(trade => {
                         if (trade.exit_date) {
                             const date = new Date(trade.exit_date);
                             const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                             const pnl = calculateNetPnl(trade);
                             monthlyPnlData[monthKey] = (monthlyPnlData[monthKey] || 0) + pnl;
+                            totalTrades++;
+                            totalPnl += pnl;
                         }
                     });
+                    
+                    console.log('Monthly P&L Data:', monthlyPnlData);
+                    console.log('Total trades processed:', totalTrades, 'Total P&L:', totalPnl);
                     
                     const sortedMonths = Object.keys(monthlyPnlData).sort();
                     const labels = sortedMonths.length > 0 ? sortedMonths : [];
@@ -3842,9 +3811,13 @@
                     
                     // If no data, show sample data
                     if (data.length === 0) {
+                        console.log('No monthly data found, using sample data');
                         labels.push('2024-01', '2024-02', '2024-03', '2024-04', '2024-05');
                         data.push(15000, -5000, 12000, 8000, 20000);
                     }
+                    
+                    console.log('Monthly chart labels:', labels);
+                    console.log('Monthly chart data:', data);
                     
                     const monthlyChart = new Chart(monthlyCtx, {
                         type: 'bar',
@@ -3865,10 +3838,22 @@
                             plugins: {
                                 legend: { display: false },
                                 tooltip: {
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    titleColor: 'white',
+                                    bodyColor: 'white',
+                                    borderColor: 'rgba(255, 255, 255, 0.2)',
+                                    borderWidth: 1,
                                     callbacks: {
+                                        title: function(context) {
+                                            return `Month: ${context[0].label}`;
+                                        },
                                         label: function(context) {
                                             const value = context.parsed.y;
-                                            return `P&L: ₹${value.toLocaleString()}`;
+                                            const isProfit = value >= 0;
+                                            return [
+                                                `Monthly P&L: ₹${value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                                                `Status: ${isProfit ? 'Profit' : 'Loss'}`
+                                            ];
                                         }
                                     }
                                 }
@@ -3876,24 +3861,37 @@
                             scales: {
                                 y: {
                                     beginAtZero: true,
-                                    grid: { color: 'rgba(0,0,0,0.1)' },
+                                    grid: { 
+                                        color: 'rgba(255,255,255,0.1)',
+                                        drawBorder: false
+                                    },
                                     ticks: {
                                         callback: function(value) {
-                                            return '₹' + value.toLocaleString();
-                                        }
+                                            return '₹' + value.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                                        },
+                                        color: 'rgba(255,255,255,0.8)',
+                                        font: { size: 11 }
                                     }
                                 },
                                 x: {
-                                    grid: { color: 'rgba(0,0,0,0.1)' },
+                                    grid: { 
+                                        color: 'rgba(255,255,255,0.1)',
+                                        drawBorder: false
+                                    },
                                     ticks: {
                                         maxRotation: 45,
-                                        minRotation: 0
+                                        minRotation: 0,
+                                        color: 'rgba(255,255,255,0.8)',
+                                        font: { size: 11 }
                                     }
                                 }
                             }
                         }
                     });
                     chartInstances['monthlyPerformanceChart'] = monthlyChart;
+                    console.log('Monthly Performance Chart created successfully');
+                } else {
+                    console.log('Monthly Performance Chart canvas not found');
                 }
                 
                 // P&L by Segment Chart
@@ -3988,14 +3986,14 @@
                                 y: {
                                     beginAtZero: true,
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         callback: function(value) {
                                             return '₹' + value.toLocaleString();
                                         },
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4003,13 +4001,13 @@
                                 },
                                 x: {
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         maxRotation: 45,
                                         minRotation: 0,
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4203,14 +4201,14 @@
                                 x: {
                                     beginAtZero: true,
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         callback: function(value) {
                                             return '₹' + value.toLocaleString();
                                         },
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4218,11 +4216,11 @@
                                 },
                                 y: {
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4313,11 +4311,11 @@
                                 x: {
                                     beginAtZero: true,
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         },
@@ -4326,11 +4324,11 @@
                                 },
                                 y: {
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4348,11 +4346,23 @@
                         chartInstances['dailyWinRateChart'].destroy();
                     }
                     
+                    console.log('Creating Daily Win Rate Chart with closedTrades:', closedTrades.length);
+                    
                     // Get all unique dates from trades
                     const allDates = new Set();
                     closedTrades.forEach(trade => {
-                        if (trade.entry_date) allDates.add(trade.entry_date);
-                        if (trade.exit_date) allDates.add(trade.exit_date);
+                        if (trade.entry_date) {
+                            // Format date to remove time information
+                            const date = new Date(trade.entry_date);
+                            const formattedDate = date.toISOString().split('T')[0];
+                            allDates.add(formattedDate);
+                        }
+                        if (trade.exit_date) {
+                            // Format date to remove time information
+                            const date = new Date(trade.exit_date);
+                            const formattedDate = date.toISOString().split('T')[0];
+                            allDates.add(formattedDate);
+                        }
                     });
                     
                     const sortedDates = Array.from(allDates).sort();
@@ -4412,7 +4422,11 @@
                             // Calculate daily trades for this date
                             const dailyTrades = closedTrades.filter(trade => {
                                 const tradeDate = trade.exit_date || trade.entry_date;
-                                return tradeDate === date;
+                                if (tradeDate) {
+                                    const formattedTradeDate = new Date(tradeDate).toISOString().split('T')[0];
+                                    return formattedTradeDate === date;
+                                }
+                                return false;
                             });
                             
                             const dailyWins = dailyTrades.filter(trade => {
@@ -4524,14 +4538,14 @@
                                     beginAtZero: true,
                                     max: 100,
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         callback: function(value) {
                                             return value.toFixed(0) + '%';
                                         },
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4539,22 +4553,38 @@
                                 },
                                 x: {
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         },
                                         maxRotation: 45,
-                                        minRotation: 0
+                                        minRotation: 0,
+                                        callback: function(value, index, ticks) {
+                                            const label = this.getLabelForValue(value);
+                                            if (label) {
+                                                // Format date to remove time information
+                                                const date = new Date(label);
+                                                return date.toLocaleDateString('en-IN', { 
+                                                    day: '2-digit', 
+                                                    month: '2-digit', 
+                                                    year: '2-digit' 
+                                                });
+                                            }
+                                            return label;
+                                        }
                                     }
                                 }
                             }
                         }
                     });
                     chartInstances['dailyWinRateChart'] = dailyWinRateChart;
+                    console.log('Daily Win Rate Chart created successfully');
+                } else {
+                    console.log('Daily Win Rate Chart canvas not found');
                 }
                 
                 // Strategy vs P&L Chart
@@ -4633,14 +4663,14 @@
                                 y: {
                                     beginAtZero: true,
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         callback: function(value) {
                                             return '₹' + value.toLocaleString();
                                         },
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4648,13 +4678,13 @@
                                 },
                                 x: {
                                     grid: { 
-                                        color: 'rgba(0,0,0,0.1)',
+                                        color: 'rgba(255,255,255,0.1)',
                                         drawBorder: false
                                     },
                                     ticks: {
                                         maxRotation: 0,
                                         minRotation: 0,
-                                        color: 'rgba(0,0,0,0.7)',
+                                        color: 'rgba(255,255,255,0.8)',
                                         font: {
                                             size: 11
                                         }
@@ -4714,7 +4744,7 @@
                                 y: {
                                     beginAtZero: true,
                                     max: 100,
-                                    grid: { color: 'rgba(0,0,0,0.1)' },
+                                    grid: { color: 'rgba(255,255,255,0.1)' },
                                     ticks: {
                                         callback: function(value) {
                                             return value + '%';
@@ -4722,7 +4752,7 @@
                                     }
                                 },
                                 x: {
-                                    grid: { color: 'rgba(0,0,0,0.1)' }
+                                    grid: { color: 'rgba(255,255,255,0.1)' }
                                 }
                             }
                         }
