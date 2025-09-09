@@ -3210,13 +3210,22 @@
         
         const renderAllCharts = () => {
             try {
+                console.log('renderAllCharts called');
                 if (typeof Chart === 'undefined') {
                     console.warn('Chart.js not loaded');
                     return;
                 }
+                console.log('Chart.js is loaded, proceeding with chart rendering');
 
                 const trades = Array.isArray(appState.trades) ? appState.trades : [];
                 const ledger = Array.isArray(appState.ledger) ? appState.ledger : [];
+                const closedTrades = trades.filter(t => t.exit_date && t.exit_price);
+                
+                console.log('Data available:', {
+                    trades: trades.length,
+                    closedTrades: closedTrades.length,
+                    ledger: ledger.length
+                });
                 
                 // Calculate daily P&L from trades
                 const byDay = {};
@@ -3330,8 +3339,8 @@
                     // Calculate daily P&L from trades
                     const dailyPnlData = {};
                     closedTrades.forEach(trade => {
-                        if (trade.exitDate) {
-                            const date = trade.exitDate;
+                        if (trade.exit_date) {
+                            const date = trade.exit_date;
                             const pnl = calculateNetPnl(trade);
                             dailyPnlData[date] = (dailyPnlData[date] || 0) + pnl;
                         }
@@ -3413,8 +3422,8 @@
                     
                     // Add trade dates
                     closedTrades.forEach(trade => {
-                        if (trade.entryDate) allDates.add(trade.entryDate);
-                        if (trade.exitDate) allDates.add(trade.exitDate);
+                        if (trade.entry_date) allDates.add(trade.entry_date);
+                        if (trade.exit_date) allDates.add(trade.exit_date);
                     });
                     
                     // Sort dates
@@ -3447,7 +3456,7 @@
                             };
                             
                             closedTrades
-                                .filter(trade => trade.exitDate && trade.exitDate <= date)
+                                .filter(trade => trade.exit_date && trade.exit_date <= date)
                                 .forEach(trade => {
                                     const segment = (trade.segment || 'equity').toLowerCase();
                                     const pnl = calculateNetPnl(trade);
@@ -3475,8 +3484,8 @@
                             
                             closedTrades
                                 .filter(trade => {
-                                    const entryDate = trade.entryDate;
-                                    const exitDate = trade.exitDate;
+                                    const entryDate = trade.entry_date;
+                                    const exitDate = trade.exit_date;
                                     return entryDate && entryDate <= date && (!exitDate || exitDate > date);
                                 })
                                 .forEach(trade => {
@@ -3621,8 +3630,8 @@
                     
                     // Add trade dates
                     closedTrades.forEach(trade => {
-                        if (trade.entryDate) allDates.add(trade.entryDate);
-                        if (trade.exitDate) allDates.add(trade.exitDate);
+                        if (trade.entry_date) allDates.add(trade.entry_date);
+                        if (trade.exit_date) allDates.add(trade.exit_date);
                     });
                     
                     // Add ledger dates
@@ -3674,14 +3683,14 @@
                             
                             // Calculate P&L up to this date
                             const pnlToDate = closedTrades
-                                .filter(trade => trade.exitDate && trade.exitDate <= date)
+                                .filter(trade => trade.exit_date && trade.exit_date <= date)
                                 .reduce((sum, trade) => sum + calculateNetPnl(trade), 0);
                             
                             // Calculate capital deployed (positive exposure) up to this date
                             const capitalDeployedToDate = closedTrades
                                 .filter(trade => {
-                                    const entryDate = trade.entryDate;
-                                    const exitDate = trade.exitDate;
+                                    const entryDate = trade.entry_date;
+                                    const exitDate = trade.exit_date;
                                     return entryDate && entryDate <= date && (!exitDate || exitDate > date);
                                 })
                                 .reduce((sum, trade) => {
@@ -3819,8 +3828,8 @@
                     // Calculate monthly P&L from trades
                     const monthlyPnlData = {};
                     closedTrades.forEach(trade => {
-                        if (trade.exitDate) {
-                            const date = new Date(trade.exitDate);
+                        if (trade.exit_date) {
+                            const date = new Date(trade.exit_date);
                             const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                             const pnl = calculateNetPnl(trade);
                             monthlyPnlData[monthKey] = (monthlyPnlData[monthKey] || 0) + pnl;
@@ -4127,8 +4136,8 @@
                     
                     // Calculate P&L by day of the week
                     closedTrades.forEach(trade => {
-                        if (trade.entryDate) {
-                            const date = new Date(trade.entryDate);
+                        if (trade.entry_date) {
+                            const date = new Date(trade.entry_date);
                             const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
                             const pnl = calculateNetPnl(trade);
                             if (dayPnlData.hasOwnProperty(dayName)) {
@@ -4245,8 +4254,8 @@
                     
                     // Count trades by day of the week
                     closedTrades.forEach(trade => {
-                        if (trade.entryDate) {
-                            const date = new Date(trade.entryDate);
+                        if (trade.entry_date) {
+                            const date = new Date(trade.entry_date);
                             const dayName = date.toLocaleDateString('en-US', { weekday: 'long' });
                             if (dayData.hasOwnProperty(dayName)) {
                                 dayData[dayName]++;
@@ -4342,8 +4351,8 @@
                     // Get all unique dates from trades
                     const allDates = new Set();
                     closedTrades.forEach(trade => {
-                        if (trade.entryDate) allDates.add(trade.entryDate);
-                        if (trade.exitDate) allDates.add(trade.exitDate);
+                        if (trade.entry_date) allDates.add(trade.entry_date);
+                        if (trade.exit_date) allDates.add(trade.exit_date);
                     });
                     
                     const sortedDates = Array.from(allDates).sort();
@@ -4402,7 +4411,7 @@
                         sortedDates.forEach(date => {
                             // Calculate daily trades for this date
                             const dailyTrades = closedTrades.filter(trade => {
-                                const tradeDate = trade.exitDate || trade.entryDate;
+                                const tradeDate = trade.exit_date || trade.entry_date;
                                 return tradeDate === date;
                             });
                             
