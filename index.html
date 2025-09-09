@@ -658,16 +658,6 @@
                             </div>
                         </div>
 
-                        <!-- Top Trades Section -->
-                        <div class="rounded-lg shadow-sm p-6 mb-8" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
-                            <div class="flex justify-between items-center mb-4">
-                               <h3 class="text-xl font-bold" style="color: var(--text-primary);">Top Trades</h3>
-                               <a href="#" data-page="trade-history" class="nav-item text-sm font-medium text-blue-600 hover:underline">View All</a>
-                            </div>
-                            <div id="top-trades-widget">
-                                <!-- Top trades will be rendered here -->
-                            </div>
-                        </div>
 
                         <!-- Charts -->
                         <div class="space-y-8">
@@ -676,6 +666,25 @@
                                 <p class="text-sm" style="color: var(--text-secondary);">Capital Deployed and Account Value over time</p>
                                 <div class="relative h-64 mt-4">
                                 <canvas id="accountBalanceChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <!-- Daily Win Rate vs Average Win Rate and Top Trades Side by Side -->
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
+                                    <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Daily Win Rate vs Average Win Rate</h3>
+                                    <div class="relative h-64">
+                                    <canvas id="dailyWinRateChart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
+                                    <div class="flex justify-between items-center mb-4">
+                                       <h3 class="text-xl font-bold" style="color: var(--text-primary);">Top Trades</h3>
+                                       <a href="#" data-page="trade-history" class="nav-item text-sm font-medium text-blue-600 hover:underline">View All</a>
+                                    </div>
+                                    <div id="top-trades-widget">
+                                        <!-- Top trades will be rendered here -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -720,13 +729,6 @@
                                     <div class="relative h-64">
                                     <canvas id="performanceByDayChart"></canvas>
                                     </div>
-                                </div>
-                            </div>
-                            <!-- ADDED: New Chart for Daily Win Rate -->
-                            <div class="p-6 rounded-lg shadow-sm" style="background-color: var(--bg-primary); border: 1px solid var(--border-color);">
-                                <h3 class="font-semibold mb-4" style="color: var(--text-primary);">Daily Win Rate vs Average Win Rate</h3>
-                                <div class="relative h-64">
-                                <canvas id="dailyWinRateChart"></canvas>
                                 </div>
                             </div>
 
@@ -3563,22 +3565,7 @@
                                             return `Date: ${context[0].label}`;
                                         },
                                         label: function(context) {
-                                            const index = context.dataIndex;
-                                            const breakdown = segmentBreakdown[index];
-                                            
-                                            return [
-                                                `Total Equity: ₹${context.parsed.y.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `Starting Balance: ₹${startingBalance.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                ``,
-                                                `Trading P&L by Segment:`,
-                                                `• Equity: ₹${breakdown.equity.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `• F&O: ₹${breakdown.fno.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `• Commodity: ₹${breakdown.commodity.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `• Currency: ₹${breakdown.currency.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                ``,
-                                                `Realized P&L: ₹${breakdown.realized.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `Unrealized P&L: ₹${breakdown.unrealized.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
-                                            ];
+                                            return `Total Equity: ₹${context.parsed.y.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
                                         }
                                     }
                                 }
@@ -3728,14 +3715,7 @@
                                             return `Date: ${context[0].label}`;
                                         },
                                         label: function(context) {
-                                            const index = context.dataIndex;
-                                            return [
-                                                `Account Value: ₹${context.parsed.y.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `Initial Balance: ₹${initialBalance.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `Cumulative Deposits: ₹${cumulativeDeposits[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `Cumulative Withdrawals: ₹${cumulativeWithdrawals[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
-                                                `Cumulative P&L: ₹${cumulativePnl[index].toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`
-                                            ];
+                                            return `Account Value: ₹${context.parsed.y.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
                                         }
                                     }
                                 }
@@ -3806,13 +3786,20 @@
                     console.log('Total trades processed:', totalTrades, 'Total P&L:', totalPnl);
                     
                     const sortedMonths = Object.keys(monthlyPnlData).sort();
-                    const labels = sortedMonths.length > 0 ? sortedMonths : [];
+                    const labels = sortedMonths.length > 0 ? sortedMonths.map(month => {
+                        // Convert "2024-01" to "JAN 2024"
+                        const [year, monthNum] = month.split('-');
+                        const monthNames = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 
+                                          'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+                        const monthName = monthNames[parseInt(monthNum) - 1];
+                        return `${monthName} ${year}`;
+                    }) : [];
                     const data = sortedMonths.length > 0 ? sortedMonths.map(month => monthlyPnlData[month]) : [];
                     
                     // If no data, show sample data
                     if (data.length === 0) {
                         console.log('No monthly data found, using sample data');
-                        labels.push('2024-01', '2024-02', '2024-03', '2024-04', '2024-05');
+                        labels.push('JAN 2024', 'FEB 2024', 'MAR 2024', 'APR 2024', 'MAY 2024');
                         data.push(15000, -5000, 12000, 8000, 20000);
                     }
                     
